@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping( "/clients")
+@RequestMapping( "/api/clients")
 public class ClientController {
 
     private final ClientService clientService;
@@ -23,6 +23,12 @@ public class ClientController {
         return clientService.getClients();
     }
 
+    //Get data for certain client by Id
+    @GetMapping(path = "/get/{clientId}")
+    public void getClient(@PathVariable("clientId") Long clientId) {
+        clientService.getClient(clientId);
+    }
+
     // Adds new client to db
     @PostMapping
     public void registerClient(@RequestBody Client client) {
@@ -35,6 +41,12 @@ public class ClientController {
         clientService.deleteClient(clientId);
     }
 
+    // Deletes one item from list
+    @DeleteMapping(path = "/del-amount/{clientId}/{amount}")
+    public void deleteAmount(@PathVariable("clientId") Long clientId, @PathVariable("amount") Integer amount) {
+        clientService.deleteAmount(clientId, amount);
+    }
+
     //Changes Client information name or email
     @PutMapping(path = "{clientId}")
     public void updateClient(@PathVariable("clientId") Long clientId,
@@ -45,16 +57,12 @@ public class ClientController {
     }
 
     // Add another amount to list for certain client
-   @PutMapping(path = "{clientId}/{amount}")
+   @PutMapping(path = "/add-amount/{clientId}/{amount}")
    public void updateAmount(
            @PathVariable("clientId") Long clientId,
           @PathVariable("amount") Integer amount)
     {
-        clientService.updateAmount(clientId, amount);
+        clientService.addAmount(clientId, amount);
 
     }
-
-
-
-
 }

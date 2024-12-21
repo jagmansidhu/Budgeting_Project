@@ -36,7 +36,6 @@ public class ClientService {
             throw new IllegalArgumentException("Client with id " + clientId + " does not exist");
         }
         clientRepository.deleteById(clientId);
-
     }
 
     @Transactional
@@ -57,12 +56,27 @@ public class ClientService {
        }
     }
 
-    public void updateAmount(Long clientId, Integer amount) {
+    public void addAmount(Long clientId, Integer amount) {
         Client client = clientRepository.findById(clientId)
                 .orElseThrow(() -> new IllegalArgumentException("Client with id " + clientId + " does not exist"));
         List<Integer> amounts = client.getAmount();
         amounts.add(amount);
         client.setAmount(amounts);
         clientRepository.save(client);
+    }
+
+    public void deleteAmount(Long clientId, Integer amount) {
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(() -> new IllegalArgumentException("Client with id " + clientId + " does not exist"));
+        List<Integer> amounts = client.getAmount();
+        amounts.remove(amount);
+        client.setAmount(amounts);
+        clientRepository.save(client);
+    }
+
+    public void getClient(Long clientId) {
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(() -> new IllegalArgumentException("Client with id " + clientId + " does not exist"));
+        clientRepository.getReferenceById(clientId);
     }
 }

@@ -56,4 +56,13 @@ public class ClientService {
            client.setEmail(email);
        }
     }
+
+    public void updateAmount(Long clientId, Integer amount) {
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(() -> new IllegalArgumentException("Client with id " + clientId + " does not exist"));
+        List<Integer> amounts = client.getAmount();
+        amounts.add(amount);
+        client.setAmount(amounts);
+        clientRepository.save(client);
+    }
 }

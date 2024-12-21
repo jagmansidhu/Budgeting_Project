@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/client")
+@RequestMapping( "/clients")
 public class ClientController {
 
     private final ClientService clientService;
@@ -17,22 +17,25 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-
+    //Gets all Clients
     @GetMapping
     public List<Client> getClients() {
         return clientService.getClients();
     }
 
+    // Adds new client to db
     @PostMapping
     public void registerClient(@RequestBody Client client) {
         clientService.addNewClient(client);
     }
 
+    //Deletes Client from db
     @DeleteMapping(path = "{clientId}")
     public void deleteClient(@PathVariable("clientId") Long clientId) {
         clientService.deleteClient(clientId);
     }
 
+    //Changes Client information name or email
     @PutMapping(path = "{clientId}")
     public void updateClient(@PathVariable("clientId") Long clientId,
                              @RequestParam(required = false) String name,
@@ -40,4 +43,7 @@ public class ClientController {
             {
         clientService.updateClient(clientId, name,email);
     }
+
+
+
 }

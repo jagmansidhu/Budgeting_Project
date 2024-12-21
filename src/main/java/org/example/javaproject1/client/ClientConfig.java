@@ -5,13 +5,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
-import java.time.Month;
+import java.util.Arrays;
 import java.util.List;
 
-import static java.time.Month.*;
+import static java.time.Month.DECEMBER;
 
 @Configuration
 public class ClientConfig {
+    List<Integer> amounts = Arrays.asList(100, 200, 300);
 
     @Bean
     CommandLineRunner commandLineRunner(ClientRepository repository){
@@ -19,7 +20,7 @@ public class ClientConfig {
             Client john = new Client(
                     "John",
                     "john@gmail.com",
-                    200,
+                   amounts,
                     "no comment",
                     LocalDate.of(2024, DECEMBER, 20)
             );
@@ -27,7 +28,7 @@ public class ClientConfig {
             Client beanns = new Client(
                     "beanns",
                     "monkey@gmail.com",
-                    200,
+                    amounts,
                     "no comment",
                     LocalDate.of(2024, DECEMBER, 22)
             );

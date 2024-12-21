@@ -1,10 +1,8 @@
 package org.example.javaproject1.client;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.rmi.Remote;
 import java.util.Optional;
 
 @Repository

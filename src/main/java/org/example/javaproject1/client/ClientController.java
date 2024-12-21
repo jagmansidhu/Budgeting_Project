@@ -44,6 +44,10 @@ public class ClientController {
         clientService.updateClient(clientId, name,email);
     }
 
+    // Add another ammount to list for certain client
+   //@PutMapping(path = "{clientId}")
+   // public void updateAmount(@PathVariable("clientId") Long clientId),
+
 
 
 }

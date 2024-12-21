@@ -3,6 +3,8 @@ package org.example.javaproject1.client;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Entity
 @Table
 public class Client {
@@ -19,13 +21,13 @@ public class Client {
     private Long id;
     private String name;
     private String email;
-    private Integer amount;
+    private List<Integer> amount;
     private String comment;
     private LocalDate date;
 
     public Client() {
     }
-    public Client(Long id, String name, String email, Integer amount, String comment, LocalDate date) {
+    public Client(Long id, String name, String email, List<Integer> amount, String comment, LocalDate date) {
 
         this.id = id;
         this.name = name;
@@ -35,7 +37,7 @@ public class Client {
         this.date = date;
     }
 
-    public Client(String name, String email, Integer amount, String comment, LocalDate date) {
+    public Client(String name, String email, List<Integer> amount, String comment, LocalDate date) {
         this.name = name;
         this.email = email;
         this.amount = amount;
@@ -67,11 +69,11 @@ public class Client {
         this.email = email;
     }
 
-    public int getAmount() {
+    public List<Integer> getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(List<Integer> amount) {
         this.amount = amount;
     }
 

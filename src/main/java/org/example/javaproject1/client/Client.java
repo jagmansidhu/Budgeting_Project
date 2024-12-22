@@ -1,12 +1,13 @@
 package org.example.javaproject1.client;
 
 import jakarta.persistence.*;
+import org.example.javaproject1.transaction.Transaction;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "client")
 public class Client {
     @Id
     @SequenceGenerator(
@@ -21,31 +22,24 @@ public class Client {
     private Long id;
     private String name;
     private String email;
-    private List<Integer> amount;
-    private String comment;
-    private LocalDate date;
 
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions;
     public Client() {
     }
-    public Client(Long id, String name, String email, List<Integer> amount, String comment, LocalDate date) {
+    public Client(Long id, String name, String email) {
 
         this.id = id;
         this.name = name;
         this.email = email;
-        this.amount = amount;
-        this.comment = comment;
-        this.date = date;
     }
 
-    public Client(String name, String email, List<Integer> amount, String comment, LocalDate date) {
+    public Client(String name, String email) {
         this.name = name;
         this.email = email;
-        this.amount = amount;
-        this.comment = comment;
-        this.date = date;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -69,39 +63,19 @@ public class Client {
         this.email = email;
     }
 
-    public List<Integer> getAmount() {
-        return amount;
-    }
-
-    public void setAmount(List<Integer> amount) {
-        this.amount = amount;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     @Override
     public String toString() {
         return "Client{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", amount=" + amount +
-                ", comment='" + comment + '\'' +
-                ", date=" + date +
+                ", transactions=" + transactions +
                 '}';
     }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions; }
 }

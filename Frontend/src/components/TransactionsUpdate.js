@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import './Updater.css';  // Assuming your custom styles are in App.css
 
-const ClientAmountUpdater = () => {
+const TransactionsUpdate = () => {
     const { clientId, transactionId } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
@@ -38,7 +38,7 @@ const ClientAmountUpdater = () => {
             });
             setResponse('Transaction updated successfully!');
             // Redirect back to client details page after successful update
-            navigate(`/client-details/${clientId}`);
+            navigate(`/transactions/${clientId}`);
         } catch (error) {
             setResponse('Error updating transaction: ' + error.message);
             console.error("Network Error:", error);
@@ -75,4 +75,4 @@ const ClientAmountUpdater = () => {
     );
 };
 
-export default ClientAmountUpdater;
+export default TransactionsUpdate;

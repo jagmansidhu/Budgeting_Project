@@ -28,7 +28,7 @@ const RegisterComponent = () => {
     };
 
     return (
-        <div className='container'>
+        <div>
             <br /> <br />
             <div>
                 <div className='register-container'>

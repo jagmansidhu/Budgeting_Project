@@ -1,34 +1,55 @@
-import React from 'react'
-import {NavLink, useNavigate} from 'react-router-dom'
-import './Header.css'
+import React from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import './Header.css';
 
-const HeaderComponent = () => {
+const HeaderComponent = ({ isLoggedIn, handleLogout }) => {
     const navigate = useNavigate();
+
+    const handleTransactionsRedirect = () => {
+        const clientId = localStorage.getItem('userId');
+        navigate(`/transactions/${clientId}`);
+    };
+
+    const handleClientDetailsRedirect = () => {
+        const clientId = localStorage.getItem('userId');
+        navigate(`/client-details/${clientId}`);
+    };
 
     return (
         <div>
             <header>
-                <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
-                    <ul className='navbar-nav'>
-                        <li>
-                            <a href='http://localhost:3000' className='navbar-brand'>
-                                Home Page
-                            </a>
-                        </li>
-                        <li className='nav-item'>
-                            <NavLink to="/register" className="nav-link">Register</NavLink>
-                        </li>
-                        <li className='nav-item'>
-                            <NavLink to="/login" className="nav-link">Login</NavLink>
-                        </li>
-
-
+                <nav >
+                    <ul>
+                        {isLoggedIn ? (
+                            <>
+                                <li>
+                                    <button onClick={handleTransactionsRedirect}> Summary</button>
+                                </li>
+                                <li>
+                                    <button onClick={handleTransactionsRedirect}>Transactions</button>
+                                </li>
+                                <li>
+                                    <button onClick={handleClientDetailsRedirect}>Client Details</button>
+                                </li>
+                                <li>
+                                    <button onClick={handleLogout}>Logout</button>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li>
+                                    <NavLink to="/register">Register</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/login">Login</NavLink>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </nav>
             </header>
-
         </div>
-    )
-}
+    );
+};
 
-export default HeaderComponent
+export default HeaderComponent;

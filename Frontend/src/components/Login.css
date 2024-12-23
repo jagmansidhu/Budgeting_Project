@@ -26,7 +26,7 @@ h2{
 .login-container {
     margin: auto;
     margin-top: 150px;
-    width: 25%;
+    width: 55%;
     /*border: 3px solid;*/
     padding: 10px;
     text-align: left;
@@ -36,7 +36,7 @@ h2{
     box-shadow: 0 0 10px 5px #d3d2d2;
 }
 
-button {
+.button {
     background-color: #333333;
     color: white;
     padding: 14px 20px;
@@ -45,10 +45,7 @@ button {
     cursor: pointer;
     width: 100%;
     font-size: 16px;
-}
-
-.button{
-    border-radius: 10000px;
+    border-radius: 1000px;
 }
 
 /* Add a hover effect for buttons */
@@ -65,4 +62,8 @@ input[type=text], input[type=password] {
     display: inline-block;
     box-sizing: border-box;
     font-size: 16px;
+}
+
+.error-message {
+    color: red; margin-top: 10px;
 }

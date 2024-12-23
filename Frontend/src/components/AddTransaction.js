@@ -26,7 +26,7 @@ const AddTransaction = () => {
             });
             setResponse('Transaction added successfully!');
             // Redirect back to client details page after a successful transaction
-            navigate(`/client-details/${clientId}`);
+            navigate(`/transactions/${clientId}`);
         } catch (error) {
             setResponse('Error adding transaction: ' + error.message);
         }

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginAPICall } from './AuthService';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {loginAPICall} from './AuthService';
 import './Login.css';
 
 const LoginComponent = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     const handleLoginForm = async (e) => {
@@ -15,13 +16,14 @@ const LoginComponent = () => {
             const response = await loginAPICall(email, password);
             console.log(response.data);
 
-            // Save user ID or token to local storage
             localStorage.setItem('userId', response.data.id);
 
-            // Redirect to client details page with client ID
-            navigate(`/client-details/${response.data.id}`);
+            navigate(`/transactions/${response.data.id}`);
+
+            window.location.reload();
         } catch (error) {
             console.error(error);
+            setErrorMessage(error.message);
         }
     };
 
@@ -32,7 +34,7 @@ const LoginComponent = () => {
     return (
         <div>
             <div className="login-container">
-                <div className="row" >
+                <div className="row">
                     <div>
                         <div>
                             <h2>Login</h2>
@@ -63,6 +65,7 @@ const LoginComponent = () => {
                                         />
                                     </div>
                                 </div>
+                                {errorMessage && <p className="error-message">{errorMessage}</p>}
                                 <div>
                                     <button className="button" onClick={handleLoginForm}>Login</button>
                                 </div>

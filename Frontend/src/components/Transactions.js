@@ -97,10 +97,9 @@ const Transactions = () => {
     return (
         <div className="transactions-container">
             {error && <p>{error}</p>}
-            <button className="transaction-button" onClick={handleAddTransactionClick}>Add Transaction</button>
             {filteredTransactions.length > 0 && (
                 <div>
-                    <div >
+                    <div>
                         <h3>Transactions</h3>
                         {filteredTransactions.map(transaction => (
                             <div key={transaction.id}>
@@ -113,7 +112,9 @@ const Transactions = () => {
                                     <button className="item-button" onClick={() => handleUpdateClick(transaction)}>
                                         Update
                                     </button>
-                                    <button className="item-button" onClick={() => handleDeleteClick(transaction.id)}>Delete</button>
+                                    <button className="item-button"
+                                            onClick={() => handleDeleteClick(transaction.id)}>Delete
+                                    </button>
                                 </div>
                             </div>
                         ))}
@@ -121,6 +122,8 @@ const Transactions = () => {
                         <div>
                             <h5>Total Amount: ${totalAmount.toFixed(2)}</h5>
                         </div>
+                        <button className="transaction-button" onClick={handleAddTransactionClick}>Add Transaction
+                        </button>
                     </div>
                 </div>
             )}

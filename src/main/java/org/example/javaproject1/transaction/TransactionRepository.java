@@ -13,4 +13,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     Optional<Long> findMaxIdByClientId(Long clientId);
     Optional<Transaction> findByIdAndClient(Long id, Client client);
 
+
 }

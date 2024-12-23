@@ -2,15 +2,12 @@ package org.example.javaproject1.transaction;
 
 import org.example.javaproject1.client.Client;
 import org.example.javaproject1.client.ClientRepository;
-import org.example.javaproject1.transaction.Transaction;
-import org.example.javaproject1.transaction.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TransactionService {

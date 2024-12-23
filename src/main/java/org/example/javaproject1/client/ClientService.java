@@ -1,11 +1,10 @@
 package org.example.javaproject1.client;
 
 import jakarta.transaction.Transactional;
+import org.example.javaproject1.transaction.Transaction;
 import org.example.javaproject1.transaction.TransactionRepository;
-import org.example.javaproject1.transaction.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.example.javaproject1.transaction.Transaction;
 
 import java.util.List;
 import java.util.Objects;
@@ -50,9 +49,6 @@ public class ClientService {
         clientRepository.deleteById(clientId);
     }
 
-    public List<Transaction> getClientTransactions(Long clientId)
-    { Client client = getClient(clientId); return client.getTransactions();}
-
     @Transactional
     public void updateClient(Long clientId, String name, String email) {
         Client client = clientRepository.findById(clientId)
@@ -71,4 +67,26 @@ public class ClientService {
         }
     }
 
+    public Client registerClient(String name, String email, String password) {
+        if (emailExists(email)) {
+            throw new IllegalStateException("Email " + email + " is already registered.");
+        }
+        Client client = new Client(name, email, password);
+        return clientRepository.save(client);
+    }
+
+    public boolean emailExists(String email) {
+        return clientRepository.findByEmail(email).isPresent();
+    }
+
+    public Client loginClient(String email) {
+        return clientRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalStateException("Client with email " + email + " does not exist"));
+    }
+
+    public Client getClientByEmail(String email) {
+        return clientRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalStateException("Client with email " + email + " does not exist"));
+    }
 }
+

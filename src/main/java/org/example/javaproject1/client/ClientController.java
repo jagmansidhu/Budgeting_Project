@@ -1,14 +1,16 @@
 package org.example.javaproject1.client;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.example.javaproject1.transaction.Transaction;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping( "/api/clients")
+@RequestMapping("/api/clients")
 public class ClientController {
 
     private final ClientService clientService;
@@ -30,14 +32,16 @@ public class ClientController {
         return clientService.getClients();
     }
 
-    @GetMapping("/{clientId}/transactions")
-    public List<Transaction> getClientTransactions(@PathVariable Long clientId)
-    { return clientService.getClientTransactions(clientId); }
     //Get data for certain client by Id
     @GetMapping(path = "/get/{clientId}")
     public Client getClient(@PathVariable("clientId") Long clientId) {
         return clientService.getClient(clientId);
     }
+    //Get data for client by email
+  /*  @GetMapping("/getByEmail")
+    public Client getClientByEmail(@RequestParam String email) {
+        return clientService.getClientByEmail(email);
+    }*/
 
     // Adds new client to db
     @PostMapping
@@ -56,11 +60,42 @@ public class ClientController {
     @PutMapping(path = "{clientId}")
     public void updateClient(@PathVariable("clientId") Long clientId,
                              @RequestParam(required = false) String name,
-                            @RequestParam(required = false) String email)
-            {
-        clientService.updateClient(clientId, name,email);
+                             @RequestParam(required = false) String email) {
+        clientService.updateClient(clientId, name, email);
     }
 
+    @PostMapping("/register")
+    public Client registerClient(@RequestBody RegisterClientRequest request) {
+        try {
+            return clientService.registerClient(request.getName(), request.getEmail(), request.getPassword());
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
 
+    @PostMapping("/login")
+    public Client loginClient(@RequestBody LoginRequest request) {
+        System.out.println("Received login request for email: " + request.getEmail());
+        Client client = clientService.loginClient(request.getEmail());
+        if (client == null || !client.getPassword().equals(request.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password");
+        }
+        return client;
+    }
 
+    @GetMapping("/getByEmail")
+    public Client getClientByEmail(@RequestParam String email) {
+        return clientService.getClientByEmail(email);
+    }
 }
+
+// DTOs
+
+
+
+
+
+
+
+
+

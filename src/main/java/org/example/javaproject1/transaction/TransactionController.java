@@ -27,12 +27,12 @@ public class TransactionController {
         return transactionService.getTransactionsByClientId(clientId);
     }
 
-   @DeleteMapping("/{transactionId}")
+   @DeleteMapping("/delete/{transactionId}")
     public void deleteTransaction(@PathVariable Long clientId, @PathVariable Long transactionId) {
        transactionService.remTransactionById(clientId, transactionId);
    }
 
-   @PutMapping("/{transactionId}")
+   @PutMapping("/update/{transactionId}")
     public Transaction updateTransaction(@PathVariable Long clientId,
                                          @PathVariable Long transactionId,
                                          @RequestBody UpdateTransactionRequest request) {

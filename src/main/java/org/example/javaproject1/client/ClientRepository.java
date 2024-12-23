@@ -12,4 +12,6 @@ public interface ClientRepository
     // SELECT * FROM client WHERE email =?
     //@Query("SELECT c from Client c WHERE c.email=?1") //JBQL
     Optional<Client> findClientByEmail(String email);
+
+    Optional<Client> findByEmail(String email);
 }

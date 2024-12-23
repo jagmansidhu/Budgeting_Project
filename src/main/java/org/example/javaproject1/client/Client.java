@@ -23,20 +23,32 @@ public class Client {
     private String name;
     private String email;
 
+    // PASSWORD FOR FUTURE USE
+    private String password;
+
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions;
+
     public Client() {
     }
-    public Client(Long id, String name, String email) {
+
+    public Client(Long id, String name, String email, String password) {
 
         this.id = id;
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
-    public Client(String name, String email) {
+  /*  public Client(String name, String email) {
         this.name = name;
         this.email = email;
+    */
+
+    public Client(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
 
     public Long getId() {
@@ -63,19 +75,32 @@ public class Client {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", transactions=" + transactions +
                 '}';
     }
-
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions; }
 }
+
+

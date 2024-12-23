@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerAPICall } from "./AuthService";
+import './Register.css'
 
 const RegisterComponent = () => {
     const [name, setName] = useState('');
@@ -30,14 +31,14 @@ const RegisterComponent = () => {
         <div className='container'>
             <br /> <br />
             <div>
-                <div>
-                    <div>
+                <div className='register-container'>
+                    <div className='row'>
                         <div>
-                            <h2>User Registration Form</h2>
+                            <h2>Register</h2>
                         </div>
                         <div>
                             <form>
-                                <div>
+                                <div className='label-container'>
                                     <label>Name</label>
                                     <div>
                                         <input
@@ -51,7 +52,7 @@ const RegisterComponent = () => {
                                     </div>
                                 </div>
 
-                                <div>
+                                <div className='label-container'>
                                     <label>Email</label>
                                     <div>
                                         <input
@@ -65,7 +66,7 @@ const RegisterComponent = () => {
                                     </div>
                                 </div>
 
-                                <div>
+                                <div className='label-container'>
                                     <label>Password</label>
                                     <div>
                                         <input
@@ -80,7 +81,7 @@ const RegisterComponent = () => {
                                 </div>
 
                                 <div>
-                                    <button onClick={handleRegistrationForm}>Submit</button>
+                                    <button className="button" onClick={handleRegistrationForm}>Register</button>
                                 </div>
                             </form>
                         </div>

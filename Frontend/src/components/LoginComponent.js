@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginAPICall } from './AuthService';
+import './Login.css';
 
 const LoginComponent = () => {
     const [email, setEmail] = useState('');
@@ -30,16 +31,15 @@ const LoginComponent = () => {
 
     return (
         <div>
-            <br /> <br />
-            <div>
-                <div>
+            <div className="login-container">
+                <div className="row" >
                     <div>
                         <div>
                             <h2>Login</h2>
                         </div>
                         <div>
                             <form>
-                                <div>
+                                <div className="label-container">
                                     <label>Email</label>
                                     <div>
                                         <input
@@ -51,7 +51,7 @@ const LoginComponent = () => {
                                         />
                                     </div>
                                 </div>
-                                <div>
+                                <div className="label-container">
                                     <label>Password</label>
                                     <div>
                                         <input
@@ -64,10 +64,10 @@ const LoginComponent = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <button onClick={handleLoginForm}>Login</button>
+                                    <button className="button" onClick={handleLoginForm}>Login</button>
                                 </div>
                                 <div>
-                                    <button type='button' onClick={handleRegisterRedirect}>
+                                    <button className="button" type='button' onClick={handleRegisterRedirect}>
                                         Don't have an account? Register here
                                     </button>
                                 </div>

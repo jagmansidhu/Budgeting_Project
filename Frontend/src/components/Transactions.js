@@ -9,11 +9,13 @@ const Transactions = () => {
     const [client, setClient] = useState(null);
     const [transactions, setTransactions] = useState([]);
     const [filteredTransactions, setFilteredTransactions] = useState([]);
-    const [totalAmount, setTotalAmount] = useState(0);  // New state for total amount
-    const [sortOrder, setSortOrder] = useState('asc');  // New state for sort order
-    const [startDate, setStartDate] = useState('');  // New state for start date
-    const [endDate, setEndDate] = useState('');  
+    const [totalAmount, setTotalAmount] = useState(0);
+    const [selectedMonth, setSelectedMonth] = useState('');
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        fetchClientDetails();
+    }, [clientId]);
 
     const fetchClientDetails = async () => {
         try {
@@ -25,7 +27,6 @@ const Transactions = () => {
             setTransactions(transactionsData);
             setFilteredTransactions(transactionsData);
 
-            // Calculate total amount
             const total = transactionsData.reduce((sum, transaction) => sum + transaction.amount, 0);
             setTotalAmount(total);
 
@@ -39,36 +40,25 @@ const Transactions = () => {
         }
     };
 
-    useEffect(() => {
-        fetchClientDetails();
-    }, [clientId]);
-
-
-    const sortTransactions = (order, start, end) => {
-        let sortedTransactions = [...filteredTransactions].sort((a, b) => {
-            if (order === 'asc') {
-                return new Date(a.date) - new Date(b.date);
-            } else {
-                return new Date(b.date) - new Date(a.date);
-            }
-        });
-        setFilteredTransactions(sortedTransactions);
-        updateTotalAmount(sortedTransactions);
+    const handleMonthChange = (event) => {
+        const month = event.target.value;
+        setSelectedMonth(month);
+        filterTransactionsByMonth(month);
     };
 
-    const filterTransactions = (start, end) => {
-        let filtered = transactions.filter(transaction => {
-            let transactionDate = new Date(transaction.date);
-            let startDate = new Date(start);
-            let endDate = new Date(end);
-            return transactionDate >= startDate && transactionDate <= endDate;
-        });
+    const filterTransactionsByMonth = (month) => {
+        let filtered = [];
+        if (month === '') {
+            filtered = transactions;
+        } else {
+            filtered = transactions.filter(transaction => {
+                const transactionDate = new Date(transaction.date);
+                return transactionDate.getMonth() === parseInt(month, 10);
+            });
+        }
         setFilteredTransactions(filtered);
-        sortTransactions(sortOrder, start, end);
-    };
 
-    const updateTotalAmount = (transactions) => {
-        const total = transactions.reduce((sum, transaction) => sum + transaction.amount, 0);
+        const total = filtered.reduce((sum, transaction) => sum + transaction.amount, 0);
         setTotalAmount(total);
     };
 
@@ -82,8 +72,7 @@ const Transactions = () => {
             await axios.delete(url);
             const updatedTransactions = transactions.filter(transaction => transaction.id !== transactionId);
             setTransactions(updatedTransactions);
-            filterTransactions(startDate, endDate);
-
+            filterTransactionsByMonth(selectedMonth);
             window.location.reload();
         } catch (err) {
             setError('Error deleting transaction: ' + err.message);
@@ -97,33 +86,50 @@ const Transactions = () => {
     return (
         <div className="transactions-container">
             {error && <p>{error}</p>}
+            <div className="actions-container">
+                <button className="transaction-button" onClick={handleAddTransactionClick}>Add Transaction</button>
+                <div className="filter-container">
+                    <select className="transaction-button" id="month" value={selectedMonth} onChange={handleMonthChange}>
+                        <option value="">All Months</option>
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                    </select>
+                </div>
+            </div>
             {filteredTransactions.length > 0 && (
-                <div>
-                    <div>
-                        <h3>Transactions</h3>
-                        {filteredTransactions.map(transaction => (
-                            <div key={transaction.id}>
-                                <div className="client-info">
-                                    <p className="transaction-info"><strong>Amount:</strong> {transaction.amount}</p>
-                                    <p className="transaction-info"><strong>Comment:</strong> {transaction.comment}</p>
-                                    <p className="transaction-info"><strong>Date:</strong> {transaction.date}</p>
-                                </div>
-                                <div>
-                                    <button className="item-button" onClick={() => handleUpdateClick(transaction)}>
-                                        Update
-                                    </button>
-                                    <button className="item-button"
-                                            onClick={() => handleDeleteClick(transaction.id)}>Delete
-                                    </button>
-                                </div>
+                <div className="all-transactions">
+                    <h3>Transactions</h3>
+                    {filteredTransactions.map(transaction => (
+                        <div className="each-transaction" key={transaction.id}>
+                            <div className="transaction-info">
+                                <p className="transaction-item">
+                                    <strong>Date:</strong> {new Date(transaction.date).toLocaleDateString()}</p>
+                                <p className="transaction-item"><strong>Amount:</strong> {transaction.amount}</p>
+                                <p className="transaction-item"><strong>Comment:</strong> {transaction.comment}</p>
                             </div>
-                        ))}
-                        <hr/>
-                        <div>
-                            <h5>Total Amount: ${totalAmount.toFixed(2)}</h5>
+                            <div>
+                                <button className="item-button" onClick={() => handleUpdateClick(transaction)}>
+                                    Update
+                                </button>
+                                <button className="item-button"
+                                        onClick={() => handleDeleteClick(transaction.id)}>Delete
+                                </button>
+                            </div>
                         </div>
-                        <button className="transaction-button" onClick={handleAddTransactionClick}>Add Transaction
-                        </button>
+                    ))}
+                    <div className="total-amount">
+                        <hr/>
+                        <h5>Total Amount: ${totalAmount.toFixed(2)}</h5>
                     </div>
                 </div>
             )}

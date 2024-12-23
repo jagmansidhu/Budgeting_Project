@@ -2,37 +2,59 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.transactions-container{
-    border: 3px solid black;
+.filter-container {
+    display: flex;
+    align-items: center;
+}
+
+.actions-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.transactions-container {
+    margin: 50px;
     margin-top: 20px;
+    display: flex; flex-direction: column;
 }
 
-.detail-container{
-    margin-top: 15px;
-    height: 10px;
-}
-
-
-.client-info {
+.transaction-info {
     display: flex;
     flex-direction: row;
+}
+
+.all-transactions{
+    margin-top:-25px;
+}
+
+.each-transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 
 }
 
-.transaction-info{
+.transaction-item {
+    margin: 0;
+    margin-right: 10px;
+    padding: 5px 0;
+}
+
+.comment {
+
+}
+
+.heading {
     margin: 5px;
 }
 
-.comment{
-
-}
-
-.heading{
-    /*border: 3px solid;*/
-    margin: 5px;
-}
-
-.transaction-button{
+.transaction-button {
     padding: 5px 10px;
     font-size: 15px;
     width: auto;
@@ -41,19 +63,30 @@ body {
     color: white;
     cursor: pointer;
 }
-.item-button{
-    padding: 1px 5px;
+
+.item-button {
     font-size: 10px;
-    width: auto;
-    height: auto;
     background-color: #333333;
     color: white;
     cursor: pointer;
-    margin-right: 5px;
+    margin-right: 10px;
+    margin-left: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
-/* Add a hover effect for buttons */
 button:hover {
     opacity: 0.8;
 }
+
+.total-amount {
+    position: sticky;
+    bottom: 0;
+    background-color: #f9f9f9;
+    padding: 5px 0;
+}
+
+
+
+
 

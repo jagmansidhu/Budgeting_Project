@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Route, Routes, useNavigate} from 'react-router-dom';
 import HeaderComponent from "./components/HeaderComponent";
 import RegisterComponent from "./components/RegisterComponent";
 import FooterComponent from "./components/FooterComponent";
@@ -30,17 +30,17 @@ const Home = () => {
 
     return (
         <div>
-            <HeaderComponent isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+            <HeaderComponent isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
             <div>
                 <Routes>
-                    <Route exact path="/" element={<LoginComponent />} />
-                    <Route path="/register" element={<RegisterComponent />} />
-                    <Route path='/login' element={<LoginComponent />} />
+                    <Route exact path="/" element={<LoginComponent/>}/>
+                    <Route path="/register" element={<RegisterComponent/>}/>
+                    <Route path='/login' element={<LoginComponent/>}/>
                     <Route
                         path="/transactions/:clientId"
                         element={
                             <ProtectedRoute>
-                                <Transactions />
+                                <Transactions/>
                             </ProtectedRoute>
                         }
                     />
@@ -48,16 +48,16 @@ const Home = () => {
                         path="/update-transaction/:clientId/:transactionId"
                         element={
                             <ProtectedRoute>
-                                <TransactionsUpdate />
+                                <TransactionsUpdate/>
                             </ProtectedRoute>
                         }
                     />
-                    <Route exact path="/ping" element={<PingComponent />} />
+                    <Route exact path="/ping" element={<PingComponent/>}/>
                     <Route
                         path="/add-transaction/:clientId"
                         element={
                             <ProtectedRoute>
-                                <AddTransaction />
+                                <AddTransaction/>
                             </ProtectedRoute>
                         }
                     />
@@ -65,13 +65,13 @@ const Home = () => {
                         path="/client-details/:clientId"
                         element={
                             <ProtectedRoute>
-                                <ClientDetails />
+                                <ClientDetails/>
                             </ProtectedRoute>
                         }
                     />
                 </Routes>
             </div>
-            <FooterComponent />
+            <FooterComponent/>
         </div>
     );
 };

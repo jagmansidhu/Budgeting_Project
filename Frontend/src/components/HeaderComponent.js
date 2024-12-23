@@ -1,8 +1,8 @@
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import './Header.css';
 
-const HeaderComponent = ({ isLoggedIn, handleLogout }) => {
+const HeaderComponent = ({isLoggedIn, handleLogout}) => {
     const navigate = useNavigate();
 
     const handleTransactionsRedirect = () => {
@@ -18,34 +18,38 @@ const HeaderComponent = ({ isLoggedIn, handleLogout }) => {
     return (
         <div>
             <header>
-                <nav >
-                    <ul>
-                        {isLoggedIn ? (
+                <nav>
+                    {isLoggedIn ? (
+                        <ul className="header-ul">
                             <>
-                                <li>
-                                    <button onClick={handleTransactionsRedirect}> Summary</button>
+                                <li className="header-li2">
+                                    <button className="li2-button" onClick={handleTransactionsRedirect}> Summary</button>
                                 </li>
-                                <li>
-                                    <button onClick={handleTransactionsRedirect}>Transactions</button>
+                                <li className="header-li2">
+                                    <button className="li2-button" onClick={handleTransactionsRedirect}>Transactions</button>
                                 </li>
-                                <li>
-                                    <button onClick={handleClientDetailsRedirect}>Client Details</button>
+                                <li className="header-li2">
+                                    <button className="li2-button" onClick={handleClientDetailsRedirect}>Client Details</button>
                                 </li>
-                                <li>
-                                    <button onClick={handleLogout}>Logout</button>
+                                <li className="header-li2">
+                                    <button className="li2-button" onClick={handleLogout}>Logout</button>
                                 </li>
+
                             </>
-                        ) : (
+                        </ul>
+                    ) : (
+                        <ul className="header-ul">
                             <>
-                                <li>
+                                <li className="header-li">
                                     <NavLink to="/register">Register</NavLink>
                                 </li>
-                                <li>
+                                <li className="header-li">
                                     <NavLink to="/login">Login</NavLink>
                                 </li>
                             </>
-                        )}
-                    </ul>
+                        </ul>
+                    )}
+
                 </nav>
             </header>
         </div>

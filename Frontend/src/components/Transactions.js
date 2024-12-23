@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {useParams, useNavigate} from 'react-router-dom';
-import './ClientDetails.css';  // Importing the CSS file
+import './Transactions.css';
 
 const Transactions = () => {
     const {clientId} = useParams();
@@ -95,17 +95,8 @@ const Transactions = () => {
     };
 
     return (
-        <div>
+        <div className="transactions-container">
             {error && <p>{error}</p>}
-           {/* {client && (
-                <div className="detail-container">
-                    <div className="client-info">
-                        <h4 className="heading"><strong>Client Details - </strong></h4>
-                        <h4 className="heading"><strong>Name:</strong> {client.name}</h4>
-                        <h4 className="heading"><strong>Email:</strong> {client.email}</h4>
-                    </div>
-                </div>
-            )}*/}
             <button className="transaction-button" onClick={handleAddTransactionClick}>Add Transaction</button>
             {filteredTransactions.length > 0 && (
                 <div>

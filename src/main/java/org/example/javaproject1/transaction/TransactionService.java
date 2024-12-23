@@ -45,12 +45,14 @@ public class TransactionService {
     }
 
     @Transactional
-    public Transaction updateTransaction( Long transactionId, Integer amount, String comment, LocalDate date) {
+    public Transaction updateTransaction(Long transactionId, Integer amount, String comment, LocalDate date) {
 
         Transaction transaction = transactionRepository.findById(transactionId)
                 .orElseThrow(() ->
                         new IllegalStateException("Transaction with id " + transactionId + " does not exist"));
-        transaction.setAmount(amount); transaction.setComment(comment); transaction.setDate(date);
+        transaction.setAmount(amount);
+        transaction.setComment(comment);
+        transaction.setDate(date);
         return transactionRepository.save(transaction);
     }
 

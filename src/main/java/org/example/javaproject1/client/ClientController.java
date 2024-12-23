@@ -3,11 +3,9 @@ package org.example.javaproject1.client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.example.javaproject1.transaction.Transaction;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -37,11 +35,6 @@ public class ClientController {
     public Client getClient(@PathVariable("clientId") Long clientId) {
         return clientService.getClient(clientId);
     }
-    //Get data for client by email
-  /*  @GetMapping("/getByEmail")
-    public Client getClientByEmail(@RequestParam String email) {
-        return clientService.getClientByEmail(email);
-    }*/
 
     // Adds new client to db
     @PostMapping
@@ -77,8 +70,9 @@ public class ClientController {
     public Client loginClient(@RequestBody LoginRequest request) {
         System.out.println("Received login request for email: " + request.getEmail());
         Client client = clientService.loginClient(request.getEmail());
-        if (client == null || !client.getPassword().equals(request.getPassword())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password");
+
+        if (!clientService.checkPassword(client, request.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Password is incorrect");
         }
         return client;
     }
@@ -89,7 +83,6 @@ public class ClientController {
     }
 }
 
-// DTOs
 
 
 

@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     @Query("SELECT MAX(t.id) FROM Transaction t WHERE t.client.id = :clientId")
     Optional<Long> findMaxIdByClientId(Long clientId);
+
     Optional<Transaction> findByIdAndClient(Long id, Client client);
 
 

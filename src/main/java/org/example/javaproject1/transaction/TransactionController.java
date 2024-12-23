@@ -27,12 +27,12 @@ public class TransactionController {
         return transactionService.getTransactionsByClientId(clientId);
     }
 
-   @DeleteMapping("/delete/{transactionId}")
+    @DeleteMapping("/delete/{transactionId}")
     public void deleteTransaction(@PathVariable Long clientId, @PathVariable Long transactionId) {
-       transactionService.remTransactionById(clientId, transactionId);
-   }
+        transactionService.remTransactionById(clientId, transactionId);
+    }
 
-   @PutMapping("/update/{transactionId}")
+    @PutMapping("/update/{transactionId}")
     public Transaction updateTransaction(@PathVariable Long clientId,
                                          @PathVariable Long transactionId,
                                          @RequestBody UpdateTransactionRequest request) {
@@ -41,7 +41,7 @@ public class TransactionController {
                 request.getAmount(),
                 request.getComment(),
                 request.getDate());
-   }
+    }
 
     static class UpdateTransactionRequest {
         private Integer amount;

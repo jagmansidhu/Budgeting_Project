@@ -4,7 +4,9 @@ import jakarta.transaction.Transactional;
 import org.example.javaproject1.transaction.Transaction;
 import org.example.javaproject1.transaction.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
@@ -80,8 +82,12 @@ public class ClientService {
     }
 
     public Client loginClient(String email) {
-        return clientRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalStateException("Client with email " + email + " does not exist"));
+        Client client = clientRepository.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account does not exist"));
+        return client;
+    }
+    public boolean checkPassword(Client client, String password) {
+        return client.getPassword().equals(password);
     }
 
     public Client getClientByEmail(String email) {

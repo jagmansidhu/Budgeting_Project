@@ -15,6 +15,7 @@ public class Transaction {
     private Integer amount;
     private String comment;
     private LocalDate date;
+    private String category;
 
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
@@ -23,10 +24,11 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Integer amount, String comment, LocalDate date, Client client) {
+    public Transaction(Integer amount, String comment, LocalDate date, String category, Client client) {
         this.amount = amount;
         this.comment = comment;
         this.date = date;
+        this.category = category;
         this.client = client;
     }
 
@@ -55,12 +57,20 @@ public class Transaction {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    public String getCategory() {
+        return category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
+    }
     @Override
     public String toString() {
         return "Transaction{" + "id=" + id + ", " +
                 "amount=" + amount + ", " +
                 "comment=" + comment + ", " +
                 "date=" + date + ", " +
+                "category=" + category + ", " +
                 '}';
     }
 

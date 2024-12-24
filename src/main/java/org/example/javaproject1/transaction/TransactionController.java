@@ -40,13 +40,15 @@ public class TransactionController {
                 transactionId,
                 request.getAmount(),
                 request.getComment(),
-                request.getDate());
+                request.getDate(),
+                request.getCategory());
     }
 
     static class UpdateTransactionRequest {
         private Integer amount;
         private String comment;
-        private LocalDate date; // Getters and setter//
+        private LocalDate date;
+        private String category;
 
         public Integer getAmount() {
             return amount;
@@ -70,6 +72,14 @@ public class TransactionController {
 
         public void setDate(LocalDate date) {
             this.date = date;
+        }
+
+        public String getCategory() {
+            return category;
+        }
+
+        public void setCategory(String category) {
+            this.category = category;
         }
     }
 }

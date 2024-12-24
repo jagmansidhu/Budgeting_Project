@@ -45,7 +45,7 @@ public class TransactionService {
     }
 
     @Transactional
-    public Transaction updateTransaction(Long transactionId, Integer amount, String comment, LocalDate date) {
+    public Transaction updateTransaction(Long transactionId, Integer amount, String comment, LocalDate date, String category) {
 
         Transaction transaction = transactionRepository.findById(transactionId)
                 .orElseThrow(() ->
@@ -53,8 +53,7 @@ public class TransactionService {
         transaction.setAmount(amount);
         transaction.setComment(comment);
         transaction.setDate(date);
+        transaction.setCategory(category);
         return transactionRepository.save(transaction);
     }
-
-    // Add more methods if needed, e.g., updateTransaction, deleteTransaction, etc.
 }

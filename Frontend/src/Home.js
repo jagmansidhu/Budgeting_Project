@@ -8,8 +8,9 @@ import Transactions from "./components/Transactions";
 import TransactionsUpdate from "./components/TransactionsUpdate";
 import PingComponent from "./components/PingComponent";
 import AddTransaction from "./components/AddTransaction";
-import ClientDetails from "./components/ClientDetails";  // Import the ClientDetails component
-import ProtectedRoute from "./components/ProtectedRoute";  // Import the ProtectedRoute component
+import ClientDetails from "./components/ClientDetails";  
+import ProtectedRoute from "./components/ProtectedRoute";
+import SummaryComponent from "./components/SummaryComponent";
 
 const Home = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,6 +37,14 @@ const Home = () => {
                     <Route exact path="/" element={<LoginComponent/>}/>
                     <Route path="/register" element={<RegisterComponent/>}/>
                     <Route path='/login' element={<LoginComponent/>}/>
+                    <Route
+                        path="/transactions/summary/:clientId"
+                        element={
+                            <ProtectedRoute>
+                                <SummaryComponent/>
+                            </ProtectedRoute>
+                        }
+                    />
                     <Route
                         path="/transactions/:clientId"
                         element={

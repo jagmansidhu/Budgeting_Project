@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import "./AddTransaction.css"
 
 const AddTransaction = () => {
     const { clientId } = useParams();
@@ -35,25 +36,25 @@ const AddTransaction = () => {
     };
 
     return (
-        <div>
+        <div className="transactions">
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Category</label>
                     <input type="text" value={category} onChange={(e) => setCategory(e.target.value)}/>
                 </div>
                 <div>
-                    <label>Amount:</label>
+                    <label>Amount</label>
                     <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)}/>
                 </div>
                 <div>
-                    <label>Comment:</label>
+                    <label>Comment</label>
                     <input type="text" value={comment} onChange={(e) => setComment(e.target.value)}/>
                 </div>
-                <div>
-                    <label>Date:</label>
-                    <input type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
+                <div className="date">
+                    <label>Date</label>
+                    <input className="date-input" type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
                 </div>
-                <button type="submit">Add Transaction</button>
+                <button className="transaction-button" type="submit">Add Transaction</button>
             </form>
             <p>{response}</p>
         </div>

@@ -17,7 +17,8 @@ body {
 .transactions-container {
     margin: 50px;
     margin-top: 20px;
-    display: flex; flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .transaction-info {
@@ -25,8 +26,8 @@ body {
     flex-direction: row;
 }
 
-.all-transactions{
-    margin-top:-25px;
+.all-transactions {
+    margin-top: -25px;
 }
 
 .each-transaction {
@@ -86,6 +87,31 @@ button:hover {
     padding: 5px 0;
 }
 
+@media (max-width: 768px) {
+    .transactions-container, .transaction-info, .each-transaction {
+        flex-direction: column;
+    }
+
+    .each-transaction {
+        align-items: flex-start;
+    }
+
+    .item-button {
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .transaction-button {
+        font-size: 0.8em;
+        padding: 5px;
+    }
+
+    .item-button {
+        font-size: 0.7em;
+        padding: 5px;
+    }
+}
 
 
 

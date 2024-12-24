@@ -7,15 +7,7 @@ label{
     text-align: left;
 }
 
-.row{
-    margin: auto;
-    width: auto;
-    padding: 30px;
-}
 
-.h2{
-    margin-top: -3px;
-}
 
 .label-container{
    /* border: 3px solid white;*/
@@ -26,7 +18,7 @@ label{
 .login-container {
     margin: auto;
     margin-top: 150px;
-    width: 55%;
+    width: 25%;
     /*border: 3px solid;*/
     padding: 10px;
     text-align: left;
@@ -43,7 +35,6 @@ label{
     margin-top: 15px;
     border: none;
     cursor: pointer;
-    width: 100%;
     font-size: 16px;
     border-radius: 1000px;
 }
@@ -56,7 +47,6 @@ button:hover {
 
 /* Full-width inputs */
 input[type=text], input[type=password] {
-    width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;

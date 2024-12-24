@@ -11,6 +11,7 @@ const Transactions = () => {
     const [filteredTransactions, setFilteredTransactions] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
     const [selectedMonth, setSelectedMonth] = useState('');
+    const [category, setCategory] = useState('');
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -82,6 +83,7 @@ const Transactions = () => {
     const handleAddTransactionClick = () => {
         navigate(`/add-transaction/${clientId}`);
     };
+    
 
     return (
         <div className="transactions-container">
@@ -89,7 +91,8 @@ const Transactions = () => {
             <div className="actions-container">
                 <button className="transaction-button" onClick={handleAddTransactionClick}>Add Transaction</button>
                 <div className="filter-container">
-                    <select className="transaction-button" id="month" value={selectedMonth} onChange={handleMonthChange}>
+                    <select className="transaction-button" id="month" value={selectedMonth}
+                            onChange={handleMonthChange}>
                         <option value="">All Months</option>
                         <option value="0">January</option>
                         <option value="1">February</option>
@@ -116,6 +119,7 @@ const Transactions = () => {
                                     <strong>Date:</strong> {new Date(transaction.date).toLocaleDateString()}</p>
                                 <p className="transaction-item"><strong>Amount:</strong> {transaction.amount}</p>
                                 <p className="transaction-item"><strong>Comment:</strong> {transaction.comment}</p>
+                                <p className="transaction-item"><strong>Category:</strong> {transaction.category}</p>
                             </div>
                             <div>
                                 <button className="item-button" onClick={() => handleUpdateClick(transaction)}>

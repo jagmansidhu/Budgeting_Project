@@ -1,23 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import './Updater.css';  // Assuming your custom styles are in App.css
+import {useParams, useNavigate, useLocation} from 'react-router-dom';
+import './Updater.css';
 
 const TransactionsUpdate = () => {
-    const { clientId, transactionId } = useParams();
+    const {clientId, transactionId} = useParams();
     const navigate = useNavigate();
     const location = useLocation();
     const [amount, setAmount] = useState('');
     const [comment, setComment] = useState('');
     const [date, setDate] = useState('');
+    const [category, setCategory] = useState('');
     const [response, setResponse] = useState('');
 
     useEffect(() => {
         if (location.state && location.state.transaction) {
-            const { amount, comment, date } = location.state.transaction;
+            const {amount, comment, date, category} = location.state.transaction;
             setAmount(amount);
             setComment(comment);
             setDate(date);
+            setCategory(category)
         }
     }, [location.state]);
 
@@ -29,7 +31,8 @@ const TransactionsUpdate = () => {
             const transaction = {
                 amount: parseInt(amount, 10),
                 comment: comment,
-                date: date
+                date: date,
+                category: category
             };
             await axios.put(url, transaction, {
                 headers: {
@@ -49,28 +52,26 @@ const TransactionsUpdate = () => {
         <div>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <div>
-                        <label>Amount:</label>
-                        <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} />
-                    </div>
-                </div>
-                <div >
-                    <div>
-                        <label>Comment:</label>
-                        <input type="text" value={comment} onChange={(e) => setComment(e.target.value)} />
-                    </div>
+                    <label>Category</label>
+                    <input type="text" value={category} onChange={(e) => setCategory(e.target.value)}/>
                 </div>
                 <div>
-                    <div>
-                        <label>Date:</label>
-                        <input type="date"  value={date} onChange={(e) => setDate(e.target.value)} />
-                    </div>
+                    <label>Amount:</label>
+                    <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)}/>
                 </div>
-                <div >
-                    <button type="submit" >Update Transaction</button>
+                <div>
+                    <label>Comment:</label>
+                    <input type="text" value={comment} onChange={(e) => setComment(e.target.value)}/>
+                </div>
+                <div>
+                    <label>Date:</label>
+                    <input type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
+                </div>
+                <div>
+                    <button type="submit">Update Transaction</button>
                 </div>
             </form>
-            <p >{response}</p>
+            <p>{response}</p>
         </div>
     );
 };
